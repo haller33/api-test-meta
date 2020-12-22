@@ -20,11 +20,8 @@ namespace Meta.Controller.src
             return await Task.Run(() => {
 
                 string returnStr = "";
-
-                returnStr = "5555";
-
+                
                 returnStr += EndPoints.GetTaxaJuros(AppSettingsProvider.NameAPIOne);
-
 
                 return Ok(returnStr);            
             });
@@ -40,7 +37,7 @@ namespace Meta.Controller.src
 
                 returnStr = "https://github.com/haller33/api-test-meta";
 
-                return Ok(returnStr);            
+                return Ok(returnStr);
             });
    
         }

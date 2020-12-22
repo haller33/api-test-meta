@@ -16,9 +16,11 @@ RUN dotnet restore
 
 RUN dotnet publish -c Release
 
-WORKDIR $HOME/bin/Release/netcoreapp3.1/publish
+# WORKDIR $HOME/bin/Release/netcoreapp3.1/publish
 
-ENTRYPOINT [ "dotnet", "MetaAPIClient.dll" ]
+ENTRYPOINT [ "dotnet", "run", " --configuration", "Release" ]
+# ENTRYPOINT [ "dotnet", "run" ]
+# ENTRYPOINT [ "dotnet", "MetaAPIClient.dll" ]
 # CMD ["dotnet", "MetaAPIClient.dll"]
 # CMD ["sleep", "infinity"]
 

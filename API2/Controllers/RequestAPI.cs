@@ -12,7 +12,7 @@ namespace Meta.Controller.src
     static class RequestAPI
     {
         private static readonly int LimitTimeout = 10000;
-        private static readonly string MethodForPOSTMan = "GET"; 
+        private static readonly string MethodFor = "GET"; 
 
         public static bool TryAddCookie(this WebRequest webRequest, Cookie cookie)
         {
@@ -30,7 +30,7 @@ namespace Meta.Controller.src
             httpRequest.CookieContainer.Add(cookie);
             return true;
         }
-        public static string PostT (string url, string parametros, string authHeaders, string typeSend, string postDataSend)
+        public static string GetT (string url, string parametros, string authHeaders)
         {
             string responseFromServer = "";
 
@@ -40,44 +40,17 @@ namespace Meta.Controller.src
 
                 WebRequest request = WebRequest.Create(urlPram);
 
-                request.Method = MethodForPOSTMan;
+                request.Method = MethodFor;
 
-                string postData = postDataSend;
-                byte[] byteArray = Encoding.UTF8.GetBytes(postData);
-
-                request.ContentType = typeSend;
-                request.ContentLength = byteArray.Length;
-                request.Headers["Accept"] = "text/html";
-                request.Headers["Authorization"] = authHeaders;
-                request.Headers["Connection"] = "Keep-Alive";
-                request.Headers["Accept-Language"] = "en";
-                request.Headers["Cache-Control"] = "no-store";
-                request.Headers["Transfer-Encoding"] = "chunked";
                 request.Timeout = LimitTimeout;
-
-                // Get the request stream.
-                Stream dataStream = request.GetRequestStream();
-                dataStream.Write(byteArray, 0, byteArray.Length);
-                dataStream.Close();
-
-                WebResponse response = request.GetResponse();
-
-                string responseString = ((HttpWebResponse)response).StatusDescription;
                 
-                // CentralLog.LogInfo(((HttpWebResponse)response).StatusDescription);
-
-                if (!(responseString.Equals("OK")))
+                
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (Stream stream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream))
                 {
-                    throw new Exception("ERROR in Return From API" + responseString);
-                }
-
-                using (dataStream = response.GetResponseStream())
-                {
-                    StreamReader reader = new StreamReader(dataStream);
                     responseFromServer = reader.ReadToEnd();
                 }
-
-                response.Close();
 
             }
             catch (WebException e) {
@@ -85,7 +58,9 @@ namespace Meta.Controller.src
                 Dictionary<string, string> ErroResponse = new Dictionary<string, string> () 
                 {
                     { "message", e.Message },
-                    { "Status", e.Status.ToString() },
+                    { "Status", e.Status.ToString (  ) },
+                    { "stack", new StreamReader(e.Response.GetResponseStream()).ReadToEnd() },
+                    { "erro", e.ToString (  ) }
                 };
                 
                 responseFromServer = JsonParse.genJson(ErroResponse, new List<string>(){});
@@ -96,7 +71,8 @@ namespace Meta.Controller.src
                 Dictionary<string, string> ErroResponse = new Dictionary<string, string> () 
                 {
                     { "message", e.Message },
-                    { "Status", "500" },
+                    { "Status", "5001" },
+                    { "Erro", e.ToString (  ) }
                 };
                 
                 responseFromServer = JsonParse.genJson(ErroResponse, new List<string>(){});

@@ -13,12 +13,11 @@ namespace Meta.Controller.src
         public static readonly bool ConstructionRequestLOG = false;
         public static readonly bool debugMode = AppSettingsProvider.IsDevelopment;
         public static readonly string sourceRequest = "WEB";
-        public static readonly string prodCat = "PIN";
-        private static readonly string parametros = "";
+        public static readonly string prodCat = "";
 
         public static string GetTaxaJuros ( string ARGS )
         {
-            return genralRequest ( "taxaJuros", ARGS );
+            return genralRequest ( ARGS, "taxaJuros" );
         }
         private static string genralRequest ( string EndpointTO, string ARGS, string transactionIDCancell = "" )
         {
@@ -28,12 +27,10 @@ namespace Meta.Controller.src
 
             string url = EndpointTO;
 
-            const string authHeaders = "";
-            const string ContentTypeSend =  "text/html";
-            
-            const string postDataSend = "";
+            string parametros = "/" + ARGS;
 
-            string hashfor = String.Concat(JsonParse.dateJSON(), microSegundos(), authHeaders, ARGS);
+            const string authHeaders = "";
+            const string postDataSend = "";
 
             if (EndPoints.debugMode) {
                 
@@ -45,7 +42,7 @@ namespace Meta.Controller.src
 
             try {
 
-                string returnStr = RequestAPI.PostT(url, parametros, authHeaders, ContentTypeSend, postDataSend);
+                string returnStr = RequestAPI.GetT(url, parametros, authHeaders);
                 
                 if (EndPoints.debugMode) {
 
@@ -65,13 +62,14 @@ namespace Meta.Controller.src
                 {
                     { "status", "500" },
                     { "message", e.Message },
-                    { "erro", "imposibilitado de acessar token, tente novamente" },
+                    { "erroMessage", "imposibilitado de acessar API, tente novamente" },
+                    { "erro", e.ToString (  ) }
                 };
 
                 returnStrng = JsonParse.genJson(myResp, new List<string>());
 
                 CentralLog.LogError(e, ":: ENDPOINTS ERROR :: >> CANOT ACCESS TOKEN ::");
-            } 
+            }
 
             return returnStrng;
         }
@@ -80,16 +78,5 @@ namespace Meta.Controller.src
         {
             return DateTime.Now.ToString("ss.ffffff");
         }
-        public static string transactionIDFrom ( string returnRedeem )
-        {
-            return (string)JsonParse.parseSWAPJSON(returnRedeem)["RetailTransactionTVResponse"]["transactionID"];
-        }
-        public static string getResponseWith ( dynamic now, string field )
-        {
-            if (now["Status"] != "Timeout")
-                return now["RetailTransactionTVResponse"][field];
-
-            return "";
-        } 
     }
 }
