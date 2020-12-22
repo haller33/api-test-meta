@@ -11,9 +11,6 @@ services:
       context: .
       dockerfile: DockerfileAPI1
     restart: unless-stopped
-    ports:
-      - '2000:2000'
-      - '2001:2001'
     expose:
       - 2000
       - 2001
