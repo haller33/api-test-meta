@@ -1,0 +1,38 @@
+version: '2.3'
+
+networks:
+    normie:
+      external: true
+    undercover:
+
+services:
+  app1:
+    build:
+      context: .
+      dockerfile: DockerfileAPI1
+    restart: unless-stopped
+    ports:
+      - '5000:5000'
+      - '5001:5001'
+    # expose:
+    #   - 5000
+    #   - 5001
+    # networks:
+    #   - undercover
+    #   - normie
+      
+  # app2:
+  #   build:
+  #     context: .
+  #     dockerfile: DockerfileAPI2
+  #   restart: unless-stopped
+  #   links:
+  #     - app1
+  #   depends_on: 
+  #     - app1
+  #   ports:
+  #     - '5000:80'
+  #     - '5001:443'
+  #   networks:
+  #     - undercover
+  #     - normie

@@ -47,6 +47,7 @@ namespace MetaAPIClient
 
             app.UseRouting();
 
+            // app.UseHttpsRedirection();
             // default value
             // app.UseMvcWithDefaultRoute();
 

@@ -47,6 +47,7 @@ namespace MetaAPIClient
 
             app.UseRouting();
 
+            // app.UseHttpsRedirection();
             // default value
             // app.UseMvcWithDefaultRoute();
 
@@ -71,7 +72,7 @@ namespace MetaAPIClient
 
             AppSettingsProvider.IsDevelopment = enviropment == "Development";
             AppSettingsProvider.Enviropment = enviropment;
-            AppSettingsProvider.taxaJuros = StaticConfig.GetSection("Settings").GetSection("API").GetSection("taxaJuros").Value;
+            AppSettingsProvider.NameAPIOne = StaticConfig.GetSection("Settings").GetSection("API").GetSection("NameAPIOne").Value;
             
 
 

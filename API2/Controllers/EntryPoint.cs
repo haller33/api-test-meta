@@ -14,7 +14,7 @@ namespace Meta.Controller.src
        
 #region "Test Local"       
 	
-        [HttpGet("taxaJuros")]
+        [HttpGet("calculaJuros")]
         public async Task<IActionResult> getStatus (  ) 
         {
             return await Task.Run(() => {
