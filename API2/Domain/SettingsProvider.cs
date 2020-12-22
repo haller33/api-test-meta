@@ -6,6 +6,5 @@ namespace Meta.Domain.src
         public static bool IsDevelopment { get; set; }
         public static string Enviropment { get; set; }
         public static bool TestInProduction { get; set; }
-        
     }
 }

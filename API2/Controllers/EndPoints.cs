@@ -15,9 +15,9 @@ namespace Meta.Controller.src
         public static readonly string sourceRequest = "WEB";
         public static readonly string prodCat = "";
 
-        public static string GetTaxaJuros ( string ARGS )
+        public static string GetTaxaJuros ( string host )
         {
-            return genralRequest ( ARGS, "taxaJuros" );
+            return genralRequest ( host, "taxaJuros" );
         }
         private static string genralRequest ( string EndpointTO, string ARGS, string transactionIDCancell = "" )
         {
