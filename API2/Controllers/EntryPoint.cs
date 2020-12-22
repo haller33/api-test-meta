@@ -15,14 +15,16 @@ namespace Meta.Controller.src
 #region "Test Local"       
 	
         [HttpGet("calculaJuros")]
-        public async Task<IActionResult> getStatus (  ) 
+        public async Task<IActionResult> getCalculaJusros (  ) 
         {
             return await Task.Run(() => {
 
                 string returnStr = "";
-                string taxa = AppSettingsProvider.taxaJuros;
 
-                returnStr = taxa;
+                returnStr = "5555";
+
+                returnStr += EndPoints.GetTaxaJuros(AppSettingsProvider.NameAPIOne);
+
 
                 return Ok(returnStr);            
             });

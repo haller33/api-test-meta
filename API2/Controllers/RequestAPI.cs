@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net;
 using System.IO;
-using OdontoSystem.Domain.src;
-using OdontoSystem.log;
+using Meta.Domain.src;
+using Meta.log;
 
-namespace OdontoSystem.Controller.src
+namespace Meta.Controller.src
 {
     static class RequestAPI
     {

@@ -75,7 +75,6 @@ namespace MetaAPIClient
             AppSettingsProvider.NameAPIOne = StaticConfig.GetSection("Settings").GetSection("API").GetSection("NameAPIOne").Value;
             
 
-
         }
     }
 }

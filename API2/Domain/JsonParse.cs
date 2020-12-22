@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json.Linq;
-using OdontoSystem.log;
+using Meta.log;
 using System.Security.Cryptography;
 
-namespace OdontoSystem.Domain.src
+namespace Meta.Domain.src
 {
     class JsonParse
     {
@@ -30,6 +30,22 @@ namespace OdontoSystem.Domain.src
             }
         }
         
+        public static string Base64StringEncode(string originalString)
+        {
+            var bytes = Encoding.UTF8.GetBytes(originalString);
+            var encodedString = Convert.ToBase64String(bytes);
+            return encodedString;
+        }
+        public static string Base64StringDecode(string encodedString)
+        {
+            var bytes = Convert.FromBase64String(encodedString);
+            var decodedString = Encoding.UTF8.GetString(bytes);
+            return decodedString;
+        }
+        public static string dateJSON()
+        {
+            return DateTime.Now.ToUniversalTime().ToString("s") +"Z";
+        }
         public static string genJson(Dictionary<string, string> jsonDic, List<string> exceptionsOf)
         {
             string json = "{";

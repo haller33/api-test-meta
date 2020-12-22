@@ -7,6 +7,6 @@ namespace Meta.Domain.Auth
     {
         static public readonly string NameAPIOne = AppSettingsProvider.NameAPIOne;
         static public readonly bool IsDevelopment = AppSettingsProvider.IsDevelopment;
-        static public readonly string Enviropment = AppSettingsProvider.Enviropment;
+        static public readonly bool Enviropment = bool.Parse(AppSettingsProvider.Enviropment);
     }
 }

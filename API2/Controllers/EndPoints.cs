@@ -26,11 +26,12 @@ namespace Meta.Controller.src
             if (EndPoints.debugMode) 
                 CentralLog.LogInfo($"ENDPOINTS :: CALL {EndpointTO} with [{ARGS}]");
 
-            string authHeaders = "Bearer " + Token.ReadSimpleToken();
+            string url = EndpointTO;
 
-            string url = Autentication.endpoint + EndpointTO;
-
-            const string ContentTypeSend =  "application/json";
+            const string authHeaders = "";
+            const string ContentTypeSend =  "text/html";
+            
+            const string postDataSend = "";
 
             string hashfor = String.Concat(JsonParse.dateJSON(), microSegundos(), authHeaders, ARGS);
 
@@ -44,7 +45,7 @@ namespace Meta.Controller.src
 
             try {
 
-                string returnStr = PostRequest.PostT(url, parametros, authHeaders, ContentTypeSend, postDataSend);
+                string returnStr = RequestAPI.PostT(url, parametros, authHeaders, ContentTypeSend, postDataSend);
                 
                 if (EndPoints.debugMode) {
 
