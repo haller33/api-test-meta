@@ -10,11 +10,13 @@ WORKDIR $HOME
 
 COPY API1 .
 
+RUN chmod -R 777 .
+
 RUN dotnet restore
 
 RUN dotnet publish -c Release
 
-WORKDIR $HOME/bin/Release/netcoreapp3.1
+WORKDIR $HOME/bin/Release/netcoreapp3.1/publish
 
 ENTRYPOINT [ "dotnet", "MetaAPIClient.dll" ]
 # CMD ["dotnet", "MetaAPIClient.dll"]
